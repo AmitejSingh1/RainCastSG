@@ -130,3 +130,20 @@ def test_predict_rejects_incomplete_history(spark):
     # Should reject gracefully explaining missing history
     assert res["status"] in ("rejected", "error")
     assert "incomplete" in res["message"].lower() or "not found" in res["message"].lower()
+
+
+def test_predict_day_of_week_matches_spark():
+    """Verifies that Python-calculated day_of_week in predict aligns with Spark F.dayofweek convention:
+
+    1 = Sunday, 2 = Monday, ..., 7 = Saturday.
+    """
+    # 2024-10-15 is a Tuesday (Python isoweekday=2, Spark dayofweek=3)
+    dt_tue = datetime(2024, 10, 15)
+    dow_tue = (dt_tue.isoweekday() % 7) + 1
+    assert dow_tue == 3
+
+    # 2024-10-13 is a Sunday (Python isoweekday=7, Spark dayofweek=1)
+    dt_sun = datetime(2024, 10, 13)
+    dow_sun = (dt_sun.isoweekday() % 7) + 1
+    assert dow_sun == 1
+

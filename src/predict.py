@@ -111,6 +111,20 @@ def predict_30min_probability(
             )
         }
 
+    # Verify exact 5-minute interval spacing across all 12 records:
+    # Latest record must match req_dt exactly, and span between oldest and latest must be 3300 seconds (55 min)
+    actual_span_seconds = (hist_records[-1]["timestamp"] - hist_records[0]["timestamp"]).total_seconds()
+    if hist_records[-1]["timestamp"] != req_dt or actual_span_seconds != 3300:
+        spark.stop()
+        return {
+            "status": "rejected",
+            "message": (
+                f"Historical observations for station {station_id} at {timestamp_str} contain temporal gaps. "
+                f"Span from oldest to latest record is {actual_span_seconds}s (expected 3300s). "
+                "Causal forecast cannot be reliably computed."
+            )
+        }
+
     # Extract historical rainfall array
     rain_lags = [r["rainfall"] for r in hist_records] # index 0 is oldest (t-55m), index 11 is latest (t)
     latest_rec = hist_records[-1]
@@ -134,7 +148,9 @@ def predict_30min_probability(
     month_sin = math.sin((month - 1) * (two_pi / 12.0))
     month_cos = math.cos((month - 1) * (two_pi / 12.0))
     day_of_year = req_dt.timetuple().tm_yday
-    day_of_week = req_dt.isoweekday()
+    # Align day_of_week with Spark F.dayofweek: 1 = Sunday, 2 = Monday, ..., 7 = Saturday
+    # Python isoweekday() returns 1 = Monday, ..., 7 = Sunday
+    day_of_week = (req_dt.isoweekday() % 7) + 1
 
     feature_row = [{
         "station_id": station_id.upper(),

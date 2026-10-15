@@ -60,6 +60,7 @@ def apply_platt_scaling(y_prob: np.ndarray, a: float, b: float) -> np.ndarray:
 def run_calibration(
     model_type: str = "logistic_regression",
     thresholds: List[float] = None,
+    sample_fraction: float = 1.0,
     config_path: str = "config/project_config.yaml"
 ):
     """Fits calibrator on validation split (2023) and evaluates reliability curves."""
@@ -80,10 +81,16 @@ def run_calibration(
     )
 
     df_features = spark.read.parquet(str(features_path))
-    # STRICT RULE: Fit calibration using validation data ONLY
+    # STRICT RULE: Fit calibration using validation data ONLY (2023)
     val_df = df_features.filter(F.col("split") == "val")
     val_count = val_df.count()
     logger.info(f"Loaded {val_count:,} validation records (2023) for probability calibration.")
+
+    if sample_fraction < 1.0:
+        logger.info(f"Applying sample fraction {sample_fraction} to validation set for calibration...")
+        val_df = val_df.sample(withReplacement=False, fraction=sample_fraction, seed=config["project"]["seed"])
+        logger.info(f"Subsampled validation records: {val_df.count():,}")
+
     val_df.cache()
 
     models_dir = Path(config["models"]["save_dir"])
@@ -178,9 +185,10 @@ def main():
     parser = argparse.ArgumentParser(description="Calibrate Probabilities for Trained ML Models")
     parser.add_argument("--model", type=str, default="logistic_regression", choices=["logistic_regression", "random_forest", "gbt"])
     parser.add_argument("--thresholds", nargs="+", type=float, default=None)
+    parser.add_argument("--sample-fraction", type=float, default=1.0, help="Optional sampling fraction for calibration fitting (default: 1.0)")
     args = parser.parse_args()
 
-    run_calibration(model_type=args.model, thresholds=args.thresholds)
+    run_calibration(model_type=args.model, thresholds=args.thresholds, sample_fraction=args.sample_fraction)
 
 
 if __name__ == "__main__":
