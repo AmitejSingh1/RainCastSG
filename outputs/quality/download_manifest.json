@@ -1,0 +1,44 @@
+{
+  "2018": {
+    "dataset_id": "d_024fb501ce7092b71bb713eaf54fa7eb",
+    "file_path": "data\\raw\\rainfall_2018.csv",
+    "file_size_bytes": 769547920,
+    "status": "downloaded"
+  },
+  "2019": {
+    "dataset_id": "d_61995f092320e7155b7528050880b502",
+    "file_path": "data\\raw\\rainfall_2019.csv",
+    "file_size_bytes": 842751786,
+    "status": "downloaded"
+  },
+  "2020": {
+    "dataset_id": "d_9e7de44094f876f6804b8b5bcee45c81",
+    "file_path": "data\\raw\\rainfall_2020.csv",
+    "file_size_bytes": 1048946924,
+    "status": "downloaded"
+  },
+  "2021": {
+    "dataset_id": "d_3b41598f74f1f11fc3430348fea51af5",
+    "file_path": "data\\raw\\rainfall_2021.csv",
+    "file_size_bytes": 1158573170,
+    "status": "downloaded"
+  },
+  "2022": {
+    "dataset_id": "d_42d64cc6c176ace1c52fbb40b9ede302",
+    "file_path": "data\\raw\\rainfall_2022.csv",
+    "file_size_bytes": 1172655651,
+    "status": "downloaded"
+  },
+  "2023": {
+    "dataset_id": "d_f864cc30d58b467db83659ad17c737bf",
+    "file_path": "data\\raw\\rainfall_2023.csv",
+    "file_size_bytes": 1107489275,
+    "status": "downloaded"
+  },
+  "2024": {
+    "dataset_id": "d_a0b69d3e02576a1fd0ab673e71f83507",
+    "file_path": "data\\raw\\rainfall_2024.csv",
+    "file_size_bytes": 1065873084,
+    "status": "downloaded"
+  }
+}

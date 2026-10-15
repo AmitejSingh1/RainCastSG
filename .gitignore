@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# PyTest
+.pytest_cache/
+
+# Apache Spark / Hadoop
+spark-warehouse/
+metastore_db/
+derby.log
+*.crc
+.metastore/
+
+# Datasets and Large Artifacts
+# Do not commit raw or processed datasets per instructions
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/samples/*
+!data/samples/.gitkeep
+
+# Intermediate and large models
+models/*
+!models/.gitkeep
+
+# Generated runtime logs
+logs/*
+!logs/.gitkeep
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Reports temporary build artifacts
+reports/*.tmp
+reports/*.aux
+reports/*.log

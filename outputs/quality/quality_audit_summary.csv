@@ -1,0 +1,9 @@
+raw_record_count,null_or_empty_station_count,null_or_invalid_timestamp_count,invalid_rainfall_count,unexpected_measurement_type_count,unexpected_unit_count,total_records_in_duplicate_groups,conflicting_duplicate_records,final_cleaned_record_count,total_rejected_records,year,input_csv_bytes,output_parquet_bytes,unique_stations_count,processing_time_seconds
+5256106,0,0,0,0,0,0,0,5256106,0,2017,881206891,69537228,62,40.46
+4594246,0,0,0,0,0,0,0,4594246,0,2018,769547920,43097530,56,29.05
+5026862,0,0,0,0,0,0,0,5026862,0,2019,842751786,64034516,54,34.06
+6334473,0,0,0,0,0,0,0,6334473,0,2020,1048946924,78429005,80,40.39
+7044646,0,0,0,0,0,0,0,7044646,0,2021,1158573170,93107220,76,45.81
+7133230,0,0,0,0,0,0,0,7133230,0,2022,1172655651,94665454,72,47.97
+6742890,0,0,0,0,0,0,0,6742890,0,2023,1107489275,88821218,74,47.65
+6406260,0,0,0,0,0,0,0,6406260,0,2024,1065873084,83143773,70,44.5
