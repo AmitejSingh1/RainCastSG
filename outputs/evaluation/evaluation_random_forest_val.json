@@ -1,0 +1,117 @@
+[
+  {
+    "threshold_mm": 0.0,
+    "evaluation_records": 6686688,
+    "positive_event_count": 446087,
+    "prevalence": 0.0667,
+    "roc_auc": 0.8848,
+    "pr_auc": 0.6797,
+    "brier_score": 0.0334,
+    "baseline_brier_score": 0.06226,
+    "brier_skill_score": 0.4636,
+    "accuracy": 0.9597,
+    "precision": 0.8085,
+    "recall": 0.5187,
+    "f1_score": 0.632,
+    "confusion_matrix": {
+      "tp": 231390,
+      "fp": 54803,
+      "tn": 6185798,
+      "fn": 214697
+    },
+    "model_type": "random_forest",
+    "split": "val"
+  },
+  {
+    "threshold_mm": 1.0,
+    "evaluation_records": 6686688,
+    "positive_event_count": 175835,
+    "prevalence": 0.0263,
+    "roc_auc": 0.9065,
+    "pr_auc": 0.5735,
+    "brier_score": 0.01556,
+    "baseline_brier_score": 0.0256,
+    "brier_skill_score": 0.3921,
+    "accuracy": 0.9816,
+    "precision": 0.7637,
+    "recall": 0.433,
+    "f1_score": 0.5526,
+    "confusion_matrix": {
+      "tp": 76135,
+      "fp": 23558,
+      "tn": 6487295,
+      "fn": 99700
+    },
+    "model_type": "random_forest",
+    "split": "val"
+  },
+  {
+    "threshold_mm": 2.0,
+    "evaluation_records": 6686688,
+    "positive_event_count": 115904,
+    "prevalence": 0.0173,
+    "roc_auc": 0.9033,
+    "pr_auc": 0.4893,
+    "brier_score": 0.01139,
+    "baseline_brier_score": 0.01703,
+    "brier_skill_score": 0.3313,
+    "accuracy": 0.9866,
+    "precision": 0.7501,
+    "recall": 0.3387,
+    "f1_score": 0.4667,
+    "confusion_matrix": {
+      "tp": 39255,
+      "fp": 13079,
+      "tn": 6557705,
+      "fn": 76649
+    },
+    "model_type": "random_forest",
+    "split": "val"
+  },
+  {
+    "threshold_mm": 5.0,
+    "evaluation_records": 6686688,
+    "positive_event_count": 58436,
+    "prevalence": 0.0087,
+    "roc_auc": 0.9061,
+    "pr_auc": 0.3739,
+    "brier_score": 0.00646,
+    "baseline_brier_score": 0.00866,
+    "brier_skill_score": 0.2548,
+    "accuracy": 0.9922,
+    "precision": 0.6788,
+    "recall": 0.2037,
+    "f1_score": 0.3133,
+    "confusion_matrix": {
+      "tp": 11902,
+      "fp": 5632,
+      "tn": 6622620,
+      "fn": 46534
+    },
+    "model_type": "random_forest",
+    "split": "val"
+  },
+  {
+    "threshold_mm": 10.0,
+    "evaluation_records": 6686688,
+    "positive_event_count": 27574,
+    "prevalence": 0.0041,
+    "roc_auc": 0.9099,
+    "pr_auc": 0.2473,
+    "brier_score": 0.00341,
+    "baseline_brier_score": 0.00411,
+    "brier_skill_score": 0.1707,
+    "accuracy": 0.9959,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "confusion_matrix": {
+      "tp": 0,
+      "fp": 0,
+      "tn": 6659114,
+      "fn": 27574
+    },
+    "model_type": "random_forest",
+    "split": "val"
+  }
+]
