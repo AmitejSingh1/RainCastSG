@@ -82,16 +82,7 @@ def run_calibration(
 
     df_features = spark.read.parquet(str(features_path))
     # STRICT RULE: Fit calibration using validation data ONLY (2023)
-    val_df = df_features.filter(F.col("split") == "val")
-    val_count = val_df.count()
-    logger.info(f"Loaded {val_count:,} validation records (2023) for probability calibration.")
-
-    if sample_fraction < 1.0:
-        logger.info(f"Applying sample fraction {sample_fraction} to validation set for calibration...")
-        val_df = val_df.sample(withReplacement=False, fraction=sample_fraction, seed=config["project"]["seed"])
-        logger.info(f"Subsampled validation records: {val_df.count():,}")
-
-    val_df.cache()
+    val_base = df_features.filter(F.col("split") == "val")
 
     models_dir = Path(config["models"]["save_dir"])
     calibration_params = {}
@@ -109,6 +100,13 @@ def run_calibration(
             continue
 
         model = PipelineModel.load(str(model_path))
+
+        # Sample a representative subset directly for Platt scaling without overflowing disk temp
+        if sample_fraction < 1.0:
+            val_df = val_base.sample(withReplacement=False, fraction=sample_fraction, seed=config["project"]["seed"])
+        else:
+            val_df = val_base
+
         pred_df = model.transform(val_df)
         pred_df = pred_df.withColumn("prob_positive", extract_prob_udf(F.col("probability")))
 
@@ -125,7 +123,7 @@ def run_calibration(
         brier_raw = float(np.mean((y_prob - y_true) ** 2))
         brier_cal = float(np.mean((y_prob_cal - y_true) ** 2))
 
-        logger.info(f"θ = {th}mm | Platt scaling: a={a:.4f}, b={b:.4f} | Brier: {brier_raw:.5f} -> {brier_cal:.5f}")
+        logger.info(f"θ = {th}mm (n={len(y_true):,}) | Platt scaling: a={a:.4f}, b={b:.4f} | Brier: {brier_raw:.5f} -> {brier_cal:.5f}")
 
         calibration_params[str(th)] = {
             "a": a,

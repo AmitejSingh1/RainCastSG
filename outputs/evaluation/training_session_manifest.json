@@ -1,0 +1,42 @@
+[
+  {
+    "model_type": "logistic_regression",
+    "threshold_mm": 0.0,
+    "label_col": "label_gt_0_0mm",
+    "training_duration_seconds": 15.72,
+    "save_path": "models\\logistic_regression_threshold_0_0",
+    "timestamp": "2026-10-16 00:08:51"
+  },
+  {
+    "model_type": "logistic_regression",
+    "threshold_mm": 1.0,
+    "label_col": "label_gt_1_0mm",
+    "training_duration_seconds": 6.11,
+    "save_path": "models\\logistic_regression_threshold_1_0",
+    "timestamp": "2026-10-16 00:08:58"
+  },
+  {
+    "model_type": "logistic_regression",
+    "threshold_mm": 2.0,
+    "label_col": "label_gt_2_0mm",
+    "training_duration_seconds": 5.74,
+    "save_path": "models\\logistic_regression_threshold_2_0",
+    "timestamp": "2026-10-16 00:09:04"
+  },
+  {
+    "model_type": "logistic_regression",
+    "threshold_mm": 5.0,
+    "label_col": "label_gt_5_0mm",
+    "training_duration_seconds": 5.35,
+    "save_path": "models\\logistic_regression_threshold_5_0",
+    "timestamp": "2026-10-16 00:09:09"
+  },
+  {
+    "model_type": "logistic_regression",
+    "threshold_mm": 10.0,
+    "label_col": "label_gt_10_0mm",
+    "training_duration_seconds": 6.04,
+    "save_path": "models\\logistic_regression_threshold_10_0",
+    "timestamp": "2026-10-16 00:09:16"
+  }
+]

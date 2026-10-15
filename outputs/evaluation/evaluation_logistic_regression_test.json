@@ -1,0 +1,117 @@
+[
+  {
+    "threshold_mm": 0.0,
+    "evaluation_records": 6338426,
+    "positive_event_count": 403195,
+    "prevalence": 0.0636,
+    "roc_auc": 0.876,
+    "pr_auc": 0.6284,
+    "brier_score": 0.03693,
+    "baseline_brier_score": 0.05956,
+    "brier_skill_score": 0.38,
+    "accuracy": 0.9558,
+    "precision": 0.8262,
+    "recall": 0.3867,
+    "f1_score": 0.5268,
+    "confusion_matrix": {
+      "tp": 155926,
+      "fp": 32803,
+      "tn": 5902428,
+      "fn": 247269
+    },
+    "model_type": "logistic_regression",
+    "split": "test"
+  },
+  {
+    "threshold_mm": 1.0,
+    "evaluation_records": 6338426,
+    "positive_event_count": 162937,
+    "prevalence": 0.0257,
+    "roc_auc": 0.8954,
+    "pr_auc": 0.5435,
+    "brier_score": 0.01628,
+    "baseline_brier_score": 0.02505,
+    "brier_skill_score": 0.35,
+    "accuracy": 0.9811,
+    "precision": 0.8275,
+    "recall": 0.3331,
+    "f1_score": 0.475,
+    "confusion_matrix": {
+      "tp": 54278,
+      "fp": 11317,
+      "tn": 6164172,
+      "fn": 108659
+    },
+    "model_type": "logistic_regression",
+    "split": "test"
+  },
+  {
+    "threshold_mm": 2.0,
+    "evaluation_records": 6338426,
+    "positive_event_count": 107033,
+    "prevalence": 0.0169,
+    "roc_auc": 0.8901,
+    "pr_auc": 0.4681,
+    "brier_score": 0.01178,
+    "baseline_brier_score": 0.0166,
+    "brier_skill_score": 0.2907,
+    "accuracy": 0.9865,
+    "precision": 0.8113,
+    "recall": 0.2583,
+    "f1_score": 0.3918,
+    "confusion_matrix": {
+      "tp": 27642,
+      "fp": 6428,
+      "tn": 6224965,
+      "fn": 79391
+    },
+    "model_type": "logistic_regression",
+    "split": "test"
+  },
+  {
+    "threshold_mm": 5.0,
+    "evaluation_records": 6338426,
+    "positive_event_count": 53122,
+    "prevalence": 0.0084,
+    "roc_auc": 0.8862,
+    "pr_auc": 0.3622,
+    "brier_score": 0.00653,
+    "baseline_brier_score": 0.00831,
+    "brier_skill_score": 0.2143,
+    "accuracy": 0.9927,
+    "precision": 0.7159,
+    "recall": 0.2165,
+    "f1_score": 0.3325,
+    "confusion_matrix": {
+      "tp": 11502,
+      "fp": 4564,
+      "tn": 6280740,
+      "fn": 41620
+    },
+    "model_type": "logistic_regression",
+    "split": "test"
+  },
+  {
+    "threshold_mm": 10.0,
+    "evaluation_records": 6338426,
+    "positive_event_count": 24265,
+    "prevalence": 0.0038,
+    "roc_auc": 0.8901,
+    "pr_auc": 0.2746,
+    "brier_score": 0.00324,
+    "baseline_brier_score": 0.00381,
+    "brier_skill_score": 0.1493,
+    "accuracy": 0.9964,
+    "precision": 0.6092,
+    "recall": 0.1685,
+    "f1_score": 0.264,
+    "confusion_matrix": {
+      "tp": 4089,
+      "fp": 2623,
+      "tn": 6311538,
+      "fn": 20176
+    },
+    "model_type": "logistic_regression",
+    "split": "test"
+  }
+]

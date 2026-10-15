@@ -190,10 +190,34 @@ def generate_pdf_report(
     # Evaluation & Calibration
     pdf.chapter_title("6", "Model Evaluation & Probability Calibration")
     pdf.body_text(
-        "Models were evaluated across five thresholds theta in [0.0, 1.0, 2.0, 5.0, 10.0] mm. "
-        "For extreme thresholds, PR-AUC and Brier scores are emphasized due to severe class imbalance. "
-        "Platt scaling calibration was fitted on the 2023 validation set only."
+        "Models were evaluated across five thresholds theta in [0.0, 1.0, 2.0, 5.0, 10.0] mm on both the 2023 validation "
+        "and 2024 held-out test partitions (over 6.3 million independent test records). "
+        "Due to severe precipitation sparsity, PR-AUC and Brier skill scores are evaluated alongside ROC-AUC."
     )
+
+    test_eval_csv = Path("outputs/evaluation/evaluation_logistic_regression_test.csv")
+    if test_eval_csv.exists():
+        df_test_eval = pd.read_csv(test_eval_csv)
+        pdf.section_title("Held-Out Test Set (2024) Performance Metrics (6,338,426 Observations)")
+        pdf.set_font("helvetica", "B", 8)
+        col_w = [22, 22, 22, 24, 24, 24, 22, 20]
+        headers = ["Threshold", "Prevalence", "ROC-AUC", "PR-AUC", "Brier Score", "Base Brier", "BSS", "Precision"]
+        for h, w in zip(headers, col_w):
+            pdf.cell(w, 6, h, border=1, align="C", fill=True)
+        pdf.ln()
+
+        pdf.set_font("helvetica", "", 8)
+        for _, row in df_test_eval.iterrows():
+            pdf.cell(col_w[0], 5, f"> {row['threshold_mm']} mm", border=1, align="C")
+            pdf.cell(col_w[1], 5, f"{row['prevalence']:.2%}", border=1, align="R")
+            pdf.cell(col_w[2], 5, f"{row['roc_auc']:.4f}", border=1, align="R")
+            pdf.cell(col_w[3], 5, f"{row['pr_auc']:.4f}", border=1, align="R")
+            pdf.cell(col_w[4], 5, f"{row['brier_score']:.5f}", border=1, align="R")
+            pdf.cell(col_w[5], 5, f"{row['baseline_brier_score']:.5f}", border=1, align="R")
+            pdf.cell(col_w[6], 5, f"{row['brier_skill_score']:+.1%}", border=1, align="R")
+            pdf.cell(col_w[7], 5, f"{row['precision']:.1%}", border=1, align="R")
+            pdf.ln()
+        pdf.ln(3)
 
     pdf.add_image_figure("figures/fig8_calibration_logistic_regression.png", "Figure 7: Reliability diagrams before and after Platt scaling calibration fitted on the 2023 validation dataset.")
 
