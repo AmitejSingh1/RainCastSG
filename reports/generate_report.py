@@ -182,10 +182,12 @@ def generate_pdf_report(
         "future 5-minute intervals (t+5m to t+30m). Future completeness is verified by exact timestamp checks.\n"
         "2. Strict Causal Features: Only historical records at or before t are used (lags at 5m, 15m, 30m, 60m, rolling "
         "mean, rolling max, wet interval counts, and trend). Cyclic sine/cosine encodings are generated for hour and month.\n"
-        "3. Chronological Splits & Leakage Prevention: Training: 2017-2022; Validation & Calibration: 2023; Held-out Test: 2024. "
+        "3. Chronological Splits & Leakage Prevention: Training: 2017-2022 (34,022,364 records); Validation: 2023 "
+        "(6,686,688 records); Held-out Test: 2024 (6,338,426 records); Total verified feature rows: 47,047,478. "
         "Observations within 30 minutes of a split boundary are excluded so targets cannot cross partitions.\n"
         "4. MLlib Architectures: Logistic Regression baseline and Random Forest classifier with StringIndexer and OneHotEncoder."
     )
+    pdf.add_image_figure("figures/fig13_event_prevalence.png", "Figure 7: Positive 30-minute rainfall exceedance prevalence across thresholds on the 2024 held-out test partition (N = 6,338,426), illustrating severe extreme-tail class imbalance.", width=140)
 
     # Evaluation & Calibration
     pdf.chapter_title("6", "Model Evaluation, Comparison & Probability Calibration")
@@ -237,7 +239,20 @@ def generate_pdf_report(
 
         pdf.ln(3)
 
-    pdf.add_image_figure("figures/fig8_calibration_logistic_regression.png", "Figure 7: Reliability diagrams before and after Platt scaling calibration fitted on the 2023 validation dataset.")
+        pdf.body_text(
+            "Note on Metrics & Decision Cutoff: The table above reports raw model probabilities evaluated at the default "
+            "decision threshold of 0.50. For Random Forest at theta = 10.0 mm (empirical test prevalence = 0.38%, 24,265 positive "
+            "cases out of 6,338,426 test records), the model achieves a PR-AUC of 0.2529 (approximately 66x above the uninformative "
+            "random prevalence baseline of 0.0038) and an ROC-AUC of 0.8984, establishing strong discriminative ranking across thresholds. "
+            "However, because trees vote unweighted and reflect natural rarity, average predicted probabilities never reach 0.50 for "
+            "any test observation, yielding zero positive predictions and 0.0% recall at the arbitrary 0.50 cutoff. "
+            "Probability calibration (Platt scaling) was fitted exclusively on the 2023 validation split to prevent test data snooping."
+        )
+
+    pdf.add_image_figure("figures/fig12_model_comparison_bars.png", "Figure 8: Model performance comparison across rainfall thresholds on the 2024 held-out test set: (A) ROC-AUC and (B) PR-AUC relative to random prevalence baselines.", width=175)
+    pdf.add_image_figure("figures/fig10_roc_curves.png", "Figure 9: Receiver Operating Characteristic (ROC) curves across five exceedance thresholds comparing Logistic Regression and Random Forest (50 trees) on the 2024 held-out test set.", width=180)
+    pdf.add_image_figure("figures/fig11_precision_recall_curves.png", "Figure 10: Precision-Recall (PR) curves across five exceedance thresholds comparing Logistic Regression and Random Forest against empirical prevalence baselines.", width=180)
+    pdf.add_image_figure("figures/fig8_calibration_logistic_regression.png", "Figure 11: Reliability diagrams before and after Platt scaling calibration fitted on the 2023 validation dataset.", width=175)
 
     # Prediction Interface
     pdf.chapter_title("7", "CLI Prediction Interface & Live Verification")
@@ -251,11 +266,18 @@ def generate_pdf_report(
     # Limitations & Conclusion
     pdf.chapter_title("8", "Limitations, AI-Use Declaration & References")
     pdf.body_text(
-        "Limitations: Local ground rain-gauge measurements lack cloud radar reflectivity and satellite wind vectors. "
-        "Extreme convective storms that form rapidly aloft may exhibit onset lag.\n\n"
-        "AI-Use Declaration: Antigravity AI assistant was utilized for environment configuration, PySpark pipeline "
-        "scaffolding, unit test authoring, and visualization script development. All code, tests, and data transformations "
-        "were independently executed and validated against actual government data sources.\n\n"
+        "Limitations: 1) Point-Gauge Spatial Resolution: Ground gauge networks measure rainfall at discrete locations; localized "
+        "tropical convective cells (1-3 km scale) may develop between stations without prior detection at upstream gauges. "
+        "2) Rainfall-Only Predictor Set: The dataset (Collection 2279) provides rainfall observations only; thermodynamic atmospheric "
+        "state variables (humidity, temperature, pressure, wind velocity profiles) are not available to forecast convective initiation. "
+        "3) Rare-Event Imbalance: At extreme thresholds (theta = 10.0 mm), standard unweighted tree ensembles require decision threshold "
+        "tuning or cost-utility optimization for operational alerting rather than a generic 0.50 cutoff. "
+        "4) Historical Continuity Strictness: Inference requires a complete 60-minute historical sequence; telemetry gaps prevent prediction.\n\n"
+        "AI-Use Declaration: In compliance with NUS academic and course guidelines, assistance from artificial intelligence tools "
+        "(Google DeepMind's Antigravity and OpenAI's ChatGPT) was utilized for project architecture planning, PySpark pipeline development "
+        "and debugging, unit test scaffolding, academic report drafting, and mathematical interpretation of probabilistic metrics. All "
+        "data ingestion, transformations, feature engineering, model training, and empirical evaluations were independently executed "
+        "and verified against actual Singapore government datasets.\n\n"
         "References:\n"
         "1. Singapore National Environment Agency (NEA), 'Historical Rainfall across Singapore', collection 2279, data.gov.sg.\n"
         "2. Apache Spark Documentation, 'Spark MLlib Guide: Pipelines and Classification', Apache Software Foundation, 2024.\n"

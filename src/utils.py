@@ -7,22 +7,49 @@ from pathlib import Path
 from typing import Any, Dict
 import yaml
 
-# Ensure JAVA_HOME and HADOOP_HOME are set on Windows
+# Ensure JAVA_HOME and HADOOP_HOME are properly configured for Spark
 def configure_environment() -> None:
-    """Configures Java and Hadoop paths for Spark on Windows if unset."""
-    if "JAVA_HOME" not in os.environ or not os.path.exists(os.environ["JAVA_HOME"]):
-        default_jdk = r"C:\Program Files\Microsoft\jdk-17.0.20.101-hotspot"
-        if os.path.exists(default_jdk):
-            os.environ["JAVA_HOME"] = default_jdk
-            os.environ["PATH"] = os.path.join(default_jdk, "bin") + os.pathsep + os.environ.get("PATH", "")
+    """Configures Java and Hadoop paths for Spark.
 
+    Preserves existing valid environment variables if set by the user or system.
+    Only falls back to standard Windows paths if JAVA_HOME or HADOOP_HOME are unset
+    or point to nonexistent locations. On Windows, registers HADOOP_HOME/bin with
+    os.add_dll_directory to ensure native winutils (hadoop.dll) load cleanly.
+    """
+    # 1. Java configuration: keep user setting if valid; otherwise check standard Windows JDKs
+    candidate_jdks = [
+        os.environ.get("JAVA_HOME", ""),
+        r"C:\Program Files\Microsoft\jdk-17.0.20.101-hotspot",
+        r"C:\Program Files\Java\jdk-17",
+    ]
+    if "JAVA_HOME" not in os.environ or not os.path.exists(os.environ["JAVA_HOME"]):
+        for jdk in candidate_jdks:
+            if jdk and os.path.exists(jdk):
+                os.environ["JAVA_HOME"] = jdk
+                break
+
+    if "JAVA_HOME" in os.environ and os.path.exists(os.environ["JAVA_HOME"]):
+        jdk_bin = os.path.join(os.environ["JAVA_HOME"], "bin")
+        if jdk_bin not in os.environ.get("PATH", ""):
+            os.environ["PATH"] = jdk_bin + os.pathsep + os.environ.get("PATH", "")
+
+    # 2. Hadoop winutils configuration (Windows only): keep user setting if valid
+    default_hadoop = r"C:\hadoop"
     if "HADOOP_HOME" not in os.environ or not os.path.exists(os.environ["HADOOP_HOME"]):
-        default_hadoop = r"C:\hadoop"
         if os.path.exists(default_hadoop):
             os.environ["HADOOP_HOME"] = default_hadoop
-            os.environ["PATH"] = os.path.join(default_hadoop, "bin") + os.pathsep + os.environ.get("PATH", "")
 
-    # Ensure Spark Python worker uses the current Python interpreter
+    if "HADOOP_HOME" in os.environ and os.path.exists(os.environ["HADOOP_HOME"]):
+        hadoop_bin = os.path.join(os.environ["HADOOP_HOME"], "bin")
+        if hadoop_bin not in os.environ.get("PATH", ""):
+            os.environ["PATH"] = hadoop_bin + os.pathsep + os.environ.get("PATH", "")
+        if sys.platform == "win32" and hasattr(os, "add_dll_directory") and os.path.exists(hadoop_bin):
+            try:
+                os.add_dll_directory(hadoop_bin)
+            except Exception:
+                pass
+
+    # Ensure Spark Python workers use the current active Python interpreter
     os.environ["PYSPARK_PYTHON"] = sys.executable
     os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
 
