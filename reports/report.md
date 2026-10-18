@@ -206,9 +206,6 @@ python -m src.evaluate --model random_forest --split test
 
 # 8. Prediction CLI (Interactive inference with calibrated probabilities)
 python -m src.predict --station-id S06 --timestamp "2024-11-07 16:45:00" --threshold 1.0
-
-# 9. Academic Report & PDF Compilation
-python -m reports.generate_report
 ```
 
 ---

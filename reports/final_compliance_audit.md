@@ -16,11 +16,10 @@ The RainCastSG project has successfully met all core algorithmic, data-engineeri
 ### Key Audit Findings:
 - **Core Implementation (100% Verified):** Ingestion of all 8 years (2017–2024, 48,538,713 clean records), strict causal feature engineering, forward 30-minute accumulation targets ($R_{30}$), strict boundary-buffer isolation preventing temporal split lookahead, both Logistic Regression and Random Forest models across all 5 thresholds ($\theta \in \{0.0, 1.0, 2.0, 5.0, 10.0\}$ mm), Platt scaling calibration fitted exclusively on 2023 validation data, and full evaluation on the held-out 2024 test partition ($N = 6,338,426$) are **completely implemented, mathematically sound, and empirically verified**.
 - **Automated Tests:** 14 out of 14 unit tests pass (`pytest tests/ -v`, runtime 98.6s) with zero failures or warnings, covering cleaning rules, zero-preservation, duplicate handling, label accumulation, temporal completeness, leakage boundaries, and inference reproducibility.
-- **Reporting Quality:** 11 publication-quality 300-DPI figures exist across Task 1 and Task 2, and are embedded in the Markdown report, compiled PDF report, and newly generated editable Microsoft Word document (`reports/RainCastSG_Report_Editable.docx`).
+- **Reporting Quality:** 11 publication-quality 300-DPI figures exist across Task 1 and Task 2, and are embedded in the project report documents (`reports/report.md`, `reports/report.pdf`, and `reports/RainCastSG_Report_Editable.docx`).
 - **Minor Items Requiring Attention Before Final Zip / Push:**
-  1. *README Documentation Lag:* The README states 13 unit tests instead of 14, and its AI declaration only mentions Antigravity (whereas `report.md`, `report.pdf`, and the Word document disclose both Antigravity and ChatGPT).
+  1. *Author Placeholder:* The author text in `report.md` and `RainCastSG_Report_Editable.docx` correctly preserves `[Student Names & Matriculation Numbers]` as an editable placeholder that must be completed by the group members prior to final submission.
   2. *Random Forest Calibration Persistence:* While Logistic Regression calibration parameters exist for all 5 thresholds, `models/calibration_random_forest.json` currently contains only threshold 1.0 mm (the other 4 thresholds fall back gracefully to uncalibrated probabilities in the prediction CLI).
-  3. *Author Placeholder:* The author text in `report.md` and `RainCastSG_Report_Editable.docx` correctly preserves `[Student Names & Matriculation Numbers]` as an editable placeholder that must be completed by the group members prior to final submission.
 
 ---
 
@@ -55,7 +54,7 @@ The RainCastSG project has successfully met all core algorithmic, data-engineeri
 | **REQ-5.1** | Report: Computing environment specifications | **PASS** | `reports/report.md:24-34`, `reports/report.pdf`, `reports/RainCastSG_Report_Editable.docx` | 13th Gen Intel i7-13620H, 16GB RAM, Win 11, OpenJDK 17 LTS, Python 3.10.6, PySpark 3.5.3, Winutils 3.3.6. | None |
 | **REQ-5.2** | Report: Markdown, PDF, and Word consistency | **PASS** | `reports/report.md`, `reports/report.pdf`, `reports/RainCastSG_Report_Editable.docx` | Text, metric tables, all 11 figures, Platt formula, limitations, AI disclosure, and references are consistent. | None |
 | **REQ-5.3** | Report: Grounded limitations | **PASS** | `reports/report.md:218-223` | Limitations grounded in actual project: point gauge density, rainfall-only features, heavy tail imbalance, 60m continuity requirement. | None |
-| **REQ-5.4** | Report: AI-use declaration | **PASS** | `reports/report.md:224-233` | Explicitly discloses dual assistance from Google DeepMind's Antigravity and OpenAI's ChatGPT. | Update README to match |
+| **REQ-5.4** | Report: AI-use declaration | **PASS** | `reports/report.md:224-233`, `README.md:219-222` | Explicitly discloses dual assistance from Google DeepMind's Antigravity and OpenAI's ChatGPT across report and README. | None |
 | **REQ-5.5** | Report: Academic references | **PASS** | `reports/report.md:234-238` | Formally cites NEA Collection 2279, Apache Spark MLlib documentation, and Wilks (2019). | None |
 | **REQ-5.6** | Report: Author & matriculation placeholders | **PASS** | `reports/report.md:5`, `reports/RainCastSG_Report_Editable.docx` | Editable placeholder `[Student Names & Matriculation Numbers]` preserved without inventing student identities. | Student manual input |
 
@@ -208,9 +207,7 @@ tests/test_temporal_features.py::test_historical_gap_detection PASSED    [100%]
 - *None.* All algorithmic requirements, data hygiene standards, and evaluation protocols are met.
 
 ### Priority 2: Important Corrections (Recommended Before Final Commit)
-1. **README Synchronization:**
-   - In `README.md`, section 4.2 states `(All 13 unit tests pass with 100% success)`. This should be updated to **14 unit tests**.
-   - In `README.md`, section 7 (AI-Use Declaration) mentions only Antigravity. It should be synchronized with `report.md` to formally disclose both **Antigravity and ChatGPT**.
+1. **README Synchronization:** *Completed.* `README.md` reflects 14 unit tests and the dual Antigravity & ChatGPT declaration.
 2. **Random Forest Calibration File Completeness:**
    - `models/calibration_random_forest.json` currently contains only threshold 1.0 mm. While the prediction CLI gracefully defaults to raw probabilities for missing thresholds without error, calibrating RF across the other 4 thresholds or documenting the 1.0 mm focus ensures full symmetry with Logistic Regression.
 
@@ -223,8 +220,6 @@ tests/test_temporal_features.py::test_historical_gap_detection PASSED    [100%]
 ## 9. Final Pre-Submission Checklist
 
 - [ ] **Author Names & Matriculation Numbers:** Open `reports/report.md` and `reports/RainCastSG_Report_Editable.docx`, and replace `[Student Names & Matriculation Numbers]` with team credentials.
-- [ ] **Re-compile PDF:** If author names are edited in `reports/report.md`, re-run `python -m reports.generate_report` to refresh `reports/report.pdf`.
-- [ ] **Sync README:** Update `README.md` test count (14 tests) and AI disclosure (Antigravity & ChatGPT).
 - [ ] **Review Word Document:** Open `reports/RainCastSG_Report_Editable.docx` in Microsoft Word to inspect pagination, table borders, and figure placements.
 - [ ] **Final Git Commit:** Stage and commit verified code, figures, and reports.
 
@@ -234,8 +229,6 @@ tests/test_temporal_features.py::test_historical_gap_detection PASSED    [100%]
 
 | File | Proposed Change | Smallest Necessary Edit |
 | :--- | :--- | :--- |
-| `README.md` | Synchronize test count and AI-use declaration | Change `13 unit tests` to `14 unit tests` at line 108. Update section 7 to disclose both Antigravity and ChatGPT. |
 | `reports/report.md` | Author details (User Action) | Fill in student names and matriculation numbers in line 5. |
-| `reports/generate_report.py` | Author details (User Action) | Update line 95 if student names are to be printed in the PDF banner. |
-| `reports/generate_docx_report.py` | Author details (User Action) | Update line 324 if student names are to be regenerated into the DOCX. |
+| `reports/RainCastSG_Report_Editable.docx` | Author details (User Action) | Fill in student names and matriculation numbers on title page. |
 

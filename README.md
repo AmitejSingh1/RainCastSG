@@ -83,8 +83,7 @@ RainCastSG/
 ├── models/                             # Saved MLlib PipelineModels & calibration parameters
 └── reports/
     ├── report.md                       # Comprehensive Markdown report
-    ├── report.pdf                      # Official NUS DSA5208 Project Report (PDF)
-    └── generate_report.py              # Automated PDF report builder
+    └── report.pdf                      # Official NUS DSA5208 Project Report (PDF)
 ```
 
 ---
@@ -105,7 +104,7 @@ Run the complete automated unit test suite to verify software correctness, stric
 ```powershell
 python -m pytest tests/ -v
 ```
-*(All 13 unit tests pass with 100% success).*
+*(All 14 unit tests pass with 100% success).*
 
 ### 4.3 Data Pipeline: Ingestion & Quality Auditing
 ```powershell
@@ -206,16 +205,15 @@ Example Output:
 
 ---
 
-## 6. PDF Report Compilation
+## 6. Project Reports & Academic Deliverables
 
-Generate the final, publication-formatted academic PDF report:
-```powershell
-python -m reports.generate_report
-```
-The compiled PDF report is located at: `reports/report.pdf`.
+The research analysis, methodology, empirical findings, and visualizations are documented in the project deliverables located in `reports/`:
+- `reports/report.md`: Complete academic project report in GitHub Flavored Markdown format.
+- `reports/report.pdf`: Official compiled project report for submission.
+- `reports/RainCastSG_Report_Editable.docx`: Editable report document including all 11 embedded publication-quality figures, formatted data tables, and mathematical formulations.
 
 ---
 
 ## 7. AI-Use Declaration
 
-In accordance with NUS DSA5208 academic integrity guidelines, Antigravity AI assistant was used for environment setup, PySpark code scaffolding, unit testing authoring, and visualization script preparation. All data processing, exploratory analyses, model training logic, and evaluations were executed independently against the actual Singapore government datasets.
+In accordance with NUS DSA5208 academic integrity guidelines, assistance from artificial intelligence tools (Google DeepMind's Antigravity coding assistant and OpenAI's ChatGPT) was utilized for environment configuration, PySpark pipeline development and debugging, unit testing scaffolding, academic report drafting and formatting, and mathematical interpretation of probabilistic metrics. All data ingestion, exploratory analyses, feature engineering, model training logic, and empirical evaluations were independently executed and verified against the actual Singapore government datasets.

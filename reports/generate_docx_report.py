@@ -810,9 +810,7 @@ def build_word_document(output_path: str = "reports/RainCastSG_Report_Editable.d
         "python -m src.evaluate --model logistic_regression --split test\n"
         "python -m src.evaluate --model random_forest --split test\n\n"
         "# 8. Prediction CLI (Interactive inference with calibrated probabilities)\n"
-        "python -m src.predict --station-id S06 --timestamp \"2024-11-07 16:45:00\" --threshold 1.0\n\n"
-        "# 9. Academic Report & PDF Compilation\n"
-        "python -m reports.generate_report"
+        "python -m src.predict --station-id S06 --timestamp \"2024-11-07 16:45:00\" --threshold 1.0"
     )
     add_code_block(doc, code_text)
 
