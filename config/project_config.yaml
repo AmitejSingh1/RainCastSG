@@ -40,7 +40,6 @@ models:
   save_dir: "models"
   outputs_dir: "outputs"
   figures_dir: "figures"
-  reports_dir: "reports"
   logistic_regression:
     max_iter: 100
     reg_param: 0.01

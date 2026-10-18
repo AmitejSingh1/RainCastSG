@@ -6,7 +6,6 @@
 
 **Course:** DSA5208 — Scalable Distributed Computing for Data Science  
 **Institution:** National University of Singapore (NUS)  
-**Submission Deadline:** 18 October 2026  
 **Central Repository:** [https://github.com/AmitejSingh1/RainCastSG](https://github.com/AmitejSingh1/RainCastSG)  
 
 ---
@@ -80,10 +79,7 @@ RainCastSG/
 │   ├── quality/                        # quality_audit_summary.csv, station_coverage.csv
 │   ├── analysis/                       # annual, monthly, diurnal, spatial summaries
 │   └── evaluation/                     # evaluation metrics & training manifests
-├── models/                             # Saved MLlib PipelineModels & calibration parameters
-└── reports/
-    ├── report.md                       # Comprehensive Markdown report
-    └── report.pdf                      # Official NUS DSA5208 Project Report (PDF)
+└── models/                             # Saved MLlib PipelineModels & calibration parameters
 ```
 
 ---
@@ -205,15 +201,17 @@ Example Output:
 
 ---
 
-## 6. Project Reports & Academic Deliverables
+## 6. Technical Outputs & Artifacts
 
-The research analysis, methodology, empirical findings, and visualizations are documented in the project deliverables located in `reports/`:
-- `reports/report.md`: Complete academic project report in GitHub Flavored Markdown format.
-- `reports/report.pdf`: Official compiled project report for submission.
-- `reports/RainCastSG_Report_Editable.docx`: Editable report document including all 11 embedded publication-quality figures, formatted data tables, and mathematical formulations.
+All computed experimental outputs, models, and figures are persisted in their respective directories:
+- `figures/`: Publication-quality analytical and model evaluation figures (Figures 1–6 for EDA; Figures 8–13 for model comparison, ROC/PR curves, event prevalence, and calibration diagrams).
+- `outputs/quality/`: `quality_audit_summary.csv`, `download_manifest.json`, and `station_coverage.csv`.
+- `outputs/analysis/`: Summary CSV tables across annual, monthly, diurnal, spatial, and intensity distributions.
+- `outputs/evaluation/`: Test and validation evaluation CSVs/JSONs across all thresholds for Logistic Regression and Random Forest models.
+- `models/`: Saved Spark MLlib `PipelineModel` directories and Platt scaling calibration parameters (`calibration_logistic_regression.json`, `calibration_random_forest.json`).
 
 ---
 
 ## 7. AI-Use Declaration
 
-In accordance with NUS DSA5208 academic integrity guidelines, assistance from artificial intelligence tools (Google DeepMind's Antigravity coding assistant and OpenAI's ChatGPT) was utilized for environment configuration, PySpark pipeline development and debugging, unit testing scaffolding, academic report drafting and formatting, and mathematical interpretation of probabilistic metrics. All data ingestion, exploratory analyses, feature engineering, model training logic, and empirical evaluations were independently executed and verified against the actual Singapore government datasets.
+In accordance with NUS DSA5208 academic integrity guidelines, assistance from artificial intelligence tools (Google DeepMind's Antigravity coding assistant and OpenAI's ChatGPT) was utilized for environment configuration, PySpark pipeline development and debugging, unit testing scaffolding, and mathematical interpretation of probabilistic metrics. All data ingestion, exploratory analyses, feature engineering, model training logic, and empirical evaluations were independently executed and verified against the actual Singapore government datasets.

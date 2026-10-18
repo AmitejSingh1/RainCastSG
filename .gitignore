@@ -62,7 +62,6 @@ logs/*
 .DS_Store
 Thumbs.db
 
-# Reports temporary build artifacts
-reports/*.tmp
-reports/*.aux
-reports/*.log
+# Reports and document artifacts (submitted separately)
+reports/
+~$*
