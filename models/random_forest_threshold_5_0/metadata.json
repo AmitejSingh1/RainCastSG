@@ -1,0 +1,8 @@
+{
+  "model_type": "random_forest",
+  "threshold_mm": 5.0,
+  "label_col": "label_gt_5_0mm",
+  "training_duration_seconds": 50.89,
+  "save_path": "models\\random_forest_threshold_5_0",
+  "timestamp": "2026-10-16 01:00:06"
+}

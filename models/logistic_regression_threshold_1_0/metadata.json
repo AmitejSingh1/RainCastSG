@@ -1,0 +1,8 @@
+{
+  "model_type": "logistic_regression",
+  "threshold_mm": 1.0,
+  "label_col": "label_gt_1_0mm",
+  "training_duration_seconds": 6.11,
+  "save_path": "models\\logistic_regression_threshold_1_0",
+  "timestamp": "2026-10-16 00:08:58"
+}

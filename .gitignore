@@ -48,9 +48,8 @@ data/processed/*
 data/samples/*
 !data/samples/.gitkeep
 
-# Intermediate and large models
-models/*
-!models/.gitkeep
+# Trained models and calibration parameters
+# models/ is tracked in git so inference can run without retraining
 
 # Generated runtime logs
 logs/*
@@ -64,4 +63,6 @@ Thumbs.db
 
 # Reports and document artifacts (submitted separately)
 reports/
+*.pdf
+*.docx
 ~$*
